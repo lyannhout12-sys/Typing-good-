@@ -1,5 +1,3 @@
-[typing good.html](https://github.com/user-attachments/files/32736025/typing.good.html)
-# Typing-good-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
