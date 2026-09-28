@@ -1,3 +1,5 @@
+[typing good.html](https://github.com/user-attachments/files/32736813/typing.good.html)
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
