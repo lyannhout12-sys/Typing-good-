@@ -1,4 +1,4 @@
-[typing good.html](https://github.com/user-attachments/files/32736813/typing.good.html)
+[Uploading Typing_good_RGB-5.html…]()
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -301,9 +301,53 @@
         @keyframes flyBlink { 0%, 100% { opacity: 0; } 50% { opacity: .9; } }
 
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+
+        /* ================= RGB LIGHT: slow, soft aurora glow ================= */
+        @keyframes hueSlow  { from { filter: hue-rotate(0deg) saturate(1.15); } to { filter: hue-rotate(360deg) saturate(1.15); } }
+        @keyframes floatA { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(6vw,5vh) scale(1.18); } 100% { transform: translate(-4vw,-3vh) scale(.95); } }
+        @keyframes floatB { 0% { transform: translate(0,0) scale(1.05); } 50% { transform: translate(-7vw,4vh) scale(.9); } 100% { transform: translate(5vw,-5vh) scale(1.2); } }
+        @keyframes glowBreathe { 0%,100% { opacity: .55; } 50% { opacity: .95; } }
+        @keyframes barShift { from { background-position: 0% 50%; } to { background-position: 300% 50%; } }
+
+        .rgb-light { position: fixed; inset: 0; pointer-events: none; z-index: 4; overflow: hidden; mix-blend-mode: screen;
+            animation: hueSlow 120s linear infinite, glowBreathe 14s ease-in-out infinite;
+            -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 38%, rgba(0,0,0,.55) 68%, #000 100%);
+            mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 38%, rgba(0,0,0,.55) 68%, #000 100%); }
+        .rgb-light i { position: absolute; width: 55vmax; height: 55vmax; border-radius: 50%; filter: blur(50px); will-change: transform; }
+        .rgb-light i:nth-child(1) { left: -22vmax; top: -22vmax; background: radial-gradient(circle, #ff2d75 0%, transparent 68%); animation: floatA 38s ease-in-out infinite alternate; }
+        .rgb-light i:nth-child(2) { right: -22vmax; top: -18vmax; background: radial-gradient(circle, #00e5ff 0%, transparent 68%); animation: floatB 46s ease-in-out infinite alternate; }
+        .rgb-light i:nth-child(3) { right: -24vmax; bottom: -24vmax; background: radial-gradient(circle, #8a2bff 0%, transparent 68%); animation: floatA 52s ease-in-out infinite alternate-reverse; }
+        .rgb-light i:nth-child(4) { left: -24vmax; bottom: -22vmax; background: radial-gradient(circle, #2bff88 0%, transparent 68%); animation: floatB 44s ease-in-out infinite alternate-reverse; }
+        .rgb-light i:nth-child(5) { left: 22vw; top: -30vmax; background: radial-gradient(circle, #ffb02b 0%, transparent 68%); opacity: .8; animation: floatA 60s ease-in-out infinite alternate; }
+        .rgb-light i:nth-child(6) { left: 25vw; bottom: -32vmax; background: radial-gradient(circle, #2b6bff 0%, transparent 68%); opacity: .85; animation: floatB 56s ease-in-out infinite alternate; }
+
+        /* Soft RGB glow behind the config bar and restart button (no border line) */
+        .config-bar, .restart-btn { position: relative; }
+        .config-bar::after, .restart-btn::after { content: ''; position: absolute; inset: 0; border-radius: inherit; z-index: -1; pointer-events: none; opacity: .5;
+            background: linear-gradient(90deg, #ff2d75, #ffb02b, #2bff88, #00e5ff, #2b6bff, #8a2bff, #ff2d75, #ffb02b, #2bff88, #00e5ff, #2b6bff, #8a2bff, #ff2d75);
+            background-size: 300% 100%; filter: blur(16px);
+            animation: barShift 60s linear infinite, glowBreathe 12s ease-in-out infinite; }
+
+        /* ================= MUSIC BUTTON ================= */
+        .music-btn { position: fixed; left: 3rem; bottom: 2rem; z-index: 10; display: flex; align-items: center; gap: 10px;
+            padding: 10px 16px; border-radius: 12px; cursor: pointer; user-select: none;
+            font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); transition: color .3s ease, border-color .3s ease, transform .25s ease, background .3s ease; }
+        .music-btn:hover { color: var(--text-main); transform: translateY(-2px); background: rgba(255,255,255,0.12); }
+        .music-btn:active { transform: scale(.96); }
+        .music-btn.on { color: var(--accent); border-color: rgba(255,215,0,.35); text-shadow: 0 0 10px var(--caret-glow); }
+        .music-btn .eq { display: flex; align-items: flex-end; gap: 2px; width: 16px; height: 14px; }
+        .music-btn .eq b { flex: 1; height: 3px; background: currentColor; border-radius: 1px; transition: height .3s ease; }
+        .music-btn.on .eq b { animation: eqBar 1.6s ease-in-out infinite; }
+        .music-btn.on .eq b:nth-child(2) { animation-duration: 2.1s; animation-delay: -.5s; }
+        .music-btn.on .eq b:nth-child(3) { animation-duration: 1.3s; animation-delay: -1s; }
+        @keyframes eqBar { 0%,100% { height: 3px; } 50% { height: 14px; } }
     </style>
 </head>
 <body>
+    <div class="rgb-light"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
     <header>
         <div class="logo">typing good</div>
@@ -364,6 +408,8 @@
     </main>
 
     <div class="bottom-info">nature theme</div>
+
+    <button class="music-btn on" id="music-btn" tabindex="-1" title="Turn music on / off"><span class="eq"><b></b><b></b><b></b></span><span id="music-label">music on</span></button>
 
     <script>
         const wordsListEn = ["out", "consider", "will", "day", "stand", "think", "state", "around", "be", "good", "develop", "into", "without", "here", "course", "high", "way", "person", "system", "program", "question", "work", "government", "number", "night", "point", "home", "water", "room", "mother", "area", "money", "story", "fact", "month", "lot", "right", "study", "book", "eye", "job", "word"];
@@ -717,6 +763,263 @@
                 });
             }).observe(rs, { attributes: true, attributeFilter: ['style'] });
         })();
+    </script>
+    <script>
+    /* Very light green tint applied only to green (plant) pixels of the background photo */
+    (function () {
+        const m = getComputedStyle(document.body).backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+        if (!m) return;
+        const img = new Image();
+        img.onload = function () {
+            try {
+                const scale = Math.min(1, 2200 / img.naturalWidth);
+                const w = Math.round(img.naturalWidth * scale), h = Math.round(img.naturalHeight * scale);
+                const c = document.createElement('canvas'); c.width = w; c.height = h;
+                const x = c.getContext('2d', { willReadFrequently: true });
+                x.drawImage(img, 0, 0, w, h);
+                const d = x.getImageData(0, 0, w, h), p = d.data;
+                const TINT = [70, 235, 110], AMOUNT = 0.10;
+                for (let i = 0; i < p.length; i += 4) {
+                    const r = p[i] / 255, g = p[i+1] / 255, b = p[i+2] / 255;
+                    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), df = mx - mn;
+                    if (mx !== g || df < 0.06) continue;           // green-dominant, non-grey pixels only
+                    const hue = 60 * (((b - r) / df) + 2);          // hue when green is max: 60..180
+                    if (hue < 70 || hue > 165) continue;            // skip yellowish / cyan-blue (sky, hills)
+                    const sat = mx ? df / mx : 0;
+                    const wgt = Math.min(1, sat * 2.2) * Math.min(1, (hue - 70) / 25, (165 - hue) / 25);
+                    const a = AMOUNT * wgt;
+                    p[i]   = p[i]   + (TINT[0] - p[i])   * a;
+                    p[i+1] = p[i+1] + (TINT[1] - p[i+1]) * a;
+                    p[i+2] = p[i+2] + (TINT[2] - p[i+2]) * a;
+                }
+                /* Lightest yellow wash over the whole image */
+                const YEL = [255, 236, 150], YA = 0.05;
+                for (let i = 0; i < p.length; i += 4) {
+                    p[i]   += (YEL[0] - p[i])   * YA;
+                    p[i+1] += (YEL[1] - p[i+1]) * YA;
+                    p[i+2] += (YEL[2] - p[i+2]) * YA;
+                }
+                x.putImageData(d, 0, 0);
+                document.body.style.backgroundImage = 'url(' + c.toDataURL('image/jpeg', 0.92) + ')';
+            } catch (e) { console.warn('green tint skipped', e); }
+        };
+        img.src = m[1];
+    })();
+    </script>
+    <script>
+    /* Sounds: soft, warm "thock" keyboard + gentle UI pops (synthesized, no files needed) */
+    (function () {
+        let ac = null, noise = null, bus = null;
+        function init() {
+            if (ac) { if (ac.state === 'suspended') ac.resume(); return true; }
+            const AC = window.AudioContext || window.webkitAudioContext;
+            if (!AC) return false;
+            ac = new AC();
+            // Master chain: gentle compressor -> lowpass (removes harshness) -> volume
+            const comp = ac.createDynamicsCompressor();
+            comp.threshold.value = -20; comp.knee.value = 24; comp.ratio.value = 3; comp.attack.value = 0.003; comp.release.value = 0.12;
+            const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 4200; lp.Q.value = 0.5;
+            const vol = ac.createGain(); vol.gain.value = 0.55;
+            bus = ac.createGain(); bus.connect(comp); comp.connect(lp); lp.connect(vol); vol.connect(ac.destination);
+            // pink-ish noise (smoother than white)
+            noise = ac.createBuffer(1, ac.sampleRate * 0.2, ac.sampleRate);
+            const ch = noise.getChannelData(0); let b0 = 0, b1 = 0, b2 = 0;
+            for (let i = 0; i < ch.length; i++) {
+                const w = Math.random() * 2 - 1;
+                b0 = 0.99765 * b0 + w * 0.0990460; b1 = 0.96300 * b1 + w * 0.2965164; b2 = 0.57000 * b2 + w * 1.0526913;
+                ch[i] = (b0 + b1 + b2 + w * 0.1848) * 0.25;
+            }
+            return true;
+        }
+        function env(g, t, peak, attack, decay) {
+            g.gain.setValueAtTime(0.0001, t);
+            g.gain.linearRampToValueAtTime(peak, t + attack);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + attack + decay);
+        }
+        function body(t, freq, decay, vol) {              // low, round "thock"
+            const o = ac.createOscillator(), g = ac.createGain();
+            o.type = 'sine';
+            o.frequency.setValueAtTime(freq * 1.5, t);
+            o.frequency.exponentialRampToValueAtTime(freq, t + 0.03);
+            env(g, t, vol, 0.004, decay);
+            o.connect(g); g.connect(bus); o.start(t); o.stop(t + decay + 0.05);
+        }
+        function tap(t, freq, decay, vol) {                // soft, muffled key contact
+            const s = ac.createBufferSource(); s.buffer = noise;
+            const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = freq; f.Q.value = 0.7;
+            const g = ac.createGain(); env(g, t, vol, 0.002, decay);
+            s.connect(f); f.connect(g); g.connect(bus); s.start(t, Math.random() * 0.1); s.stop(t + decay + 0.03);
+        }
+        function keySound(kind) {
+            if (!init()) return;
+            const t = ac.currentTime, r = 0.94 + Math.random() * 0.12;
+            if (kind === 'space')     { body(t, 95 * r, 0.14, 0.75); body(t, 210 * r, 0.06, 0.18); tap(t, 1400, 0.06, 0.55); }
+            else if (kind === 'back') { body(t, 135 * r, 0.09, 0.6);  body(t, 300 * r, 0.04, 0.14); tap(t, 1800, 0.04, 0.4); }
+            else                      { body(t, 150 * r, 0.085, 0.6); body(t, 340 * r, 0.04, 0.16); tap(t, 2000, 0.04, 0.45); }
+        }
+        function uiSound() {                              // gentle rounded pop
+            if (!init()) return;
+            const t = ac.currentTime;
+            const o = ac.createOscillator(), o2 = ac.createOscillator(), g = ac.createGain();
+            o.type = 'sine'; o2.type = 'sine';
+            o.frequency.setValueAtTime(520, t); o.frequency.exponentialRampToValueAtTime(640, t + 0.08);
+            o2.frequency.setValueAtTime(1040, t); o2.frequency.exponentialRampToValueAtTime(1280, t + 0.08);
+            const g2 = ac.createGain(); g2.gain.value = 0.25;
+            env(g, t, 0.22, 0.008, 0.14);
+            o.connect(g); o2.connect(g2); g2.connect(g); g.connect(bus);
+            o.start(t); o2.start(t); o.stop(t + 0.2); o2.stop(t + 0.2);
+        }
+        const MOD = ['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'AltGraph', 'Escape', 'Dead'];
+        document.addEventListener('keydown', function (e) {
+            if (e.ctrlKey || e.metaKey || MOD.indexOf(e.key) !== -1) return;
+            if (e.key === 'Tab') return uiSound();
+            keySound(e.key === ' ' ? 'space' : e.key === 'Backspace' ? 'back' : 'key');
+        }, true);
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.config-item, .restart-btn, .logo, .focus-warning, button')) uiSound();
+        }, true);
+        document.addEventListener('pointerdown', init, { once: true });
+    })();
+    </script>
+    <script>
+    /* Relaxing nature music: generative soft pads + gentle bells + wind + distant birds (all synthesized) */
+    (function () {
+        const btn = document.getElementById('music-btn'), label = document.getElementById('music-label');
+        let want = true;
+        try { if (localStorage.getItem('typing_music') === 'off') want = false; } catch (e) {}
+        let ac = null, master = null, dry = null, wet = null, playing = false, timers = [], started = false, windNodes = [];
+
+        function ui() { btn.classList.toggle('on', playing); label.textContent = playing ? 'music on' : 'music off'; }
+        const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+        const rand = (a, b) => a + Math.random() * (b - a);
+
+        function build() {
+            const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
+            ac = new AC();
+            master = ac.createGain(); master.gain.value = 0; master.connect(ac.destination);
+            dry = ac.createGain(); dry.gain.value = 1; dry.connect(master);
+            // Big soft reverb (generated impulse response)
+            const len = ac.sampleRate * 5, ir = ac.createBuffer(2, len, ac.sampleRate);
+            for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+            const conv = ac.createConvolver(); conv.buffer = ir;
+            const rl = ac.createBiquadFilter(); rl.type = 'lowpass'; rl.frequency.value = 3500;
+            wet = ac.createGain(); wet.gain.value = 0.55; wet.connect(conv); conv.connect(rl); rl.connect(master);
+            return true;
+        }
+        function out(node, send, pan) {
+            let n = node;
+            if (pan !== undefined && ac.createStereoPanner) { const p = ac.createStereoPanner(); p.pan.value = pan; n.connect(p); n = p; }
+            const g = ac.createGain(); g.gain.value = send; n.connect(dry); n.connect(g); g.connect(wet);
+        }
+        function env(g, t, peak, atk, hold, rel) {
+            g.gain.setValueAtTime(0.0001, t);
+            g.gain.exponentialRampToValueAtTime(peak, t + atk);
+            g.gain.setValueAtTime(peak, t + atk + hold);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + atk + hold + rel);
+        }
+
+        // Warm pad voice
+        function padNote(m, t, dur, vol) {
+            [-7, 7].forEach(function (cents, i) {
+                const o = ac.createOscillator(), g = ac.createGain(), f = ac.createBiquadFilter();
+                o.type = i ? 'sine' : 'triangle'; o.frequency.value = mtof(m); o.detune.value = cents;
+                f.type = 'lowpass'; f.frequency.value = 1100;
+                env(g, t, vol, 4.5, Math.max(0.1, dur - 4), 6);
+                o.connect(f); f.connect(g); out(g, 0.6, rand(-0.5, 0.5));
+                o.start(t); o.stop(t + dur + 6.5);
+            });
+        }
+        // Soft bell / kalimba-like note
+        function bell(m, t, vol) {
+            const f0 = mtof(m);
+            [[1, 1, 3.6], [2, 0.18, 1.6], [3.01, 0.05, 0.8]].forEach(function (p) {
+                const o = ac.createOscillator(), g = ac.createGain();
+                o.type = 'sine'; o.frequency.value = f0 * p[0];
+                env(g, t, vol * p[1], 0.012, 0.02, p[2]);
+                o.connect(g); out(g, 0.8, rand(-0.7, 0.7)); o.start(t); o.stop(t + p[2] + 0.2);
+            });
+        }
+        // Tiny distant bird chirps
+        function bird(t) {
+            const base = rand(2600, 3800), n = 2 + Math.floor(Math.random() * 3), pan = rand(-0.8, 0.8);
+            for (let i = 0; i < n; i++) {
+                const s = t + i * rand(0.13, 0.2), o = ac.createOscillator(), g = ac.createGain();
+                o.type = 'sine';
+                o.frequency.setValueAtTime(base, s); o.frequency.exponentialRampToValueAtTime(base * rand(1.15, 1.4), s + 0.07);
+                env(g, s, 0.014, 0.01, 0.02, 0.06);
+                o.connect(g); out(g, 0.7, pan); o.start(s); o.stop(s + 0.14);
+            }
+        }
+        // Gentle wind
+        function wind() {
+            const len = ac.sampleRate * 6, buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0);
+            let b0 = 0, b1 = 0, b2 = 0;
+            for (let i = 0; i < len; i++) { const w = Math.random() * 2 - 1; b0 = .99765 * b0 + w * .099046; b1 = .963 * b1 + w * .2965164; b2 = .57 * b2 + w * 1.0526913; d[i] = (b0 + b1 + b2 + w * .1848) * .2; }
+            const src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
+            const f = ac.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 450; f.Q.value = 0.5;
+            const g = ac.createGain(); g.gain.value = 0.05;
+            const l1 = ac.createOscillator(), l1g = ac.createGain(); l1.frequency.value = 0.06; l1g.gain.value = 0.03; l1.connect(l1g); l1g.connect(g.gain);
+            const l2 = ac.createOscillator(), l2g = ac.createGain(); l2.frequency.value = 0.045; l2g.gain.value = 180; l2.connect(l2g); l2g.connect(f.frequency);
+            src.connect(f); f.connect(g); out(g, 0.3);
+            src.start(); l1.start(); l2.start(); windNodes = [src, l1, l2];
+        }
+
+        const CH = [[48, 55, 59, 64, 67], [45, 52, 55, 60, 64], [41, 48, 52, 57, 62], [43, 50, 57, 59, 64]];
+        const SC = [72, 74, 76, 79, 81, 84, 79, 76];
+        let ci = 0;
+        function chord() {
+            if (!playing) return;
+            const t = ac.currentTime + 0.1, c = CH[ci++ % CH.length], dur = 14;
+            c.forEach(function (m, i) { padNote(m, t + i * 0.25, dur, i === 0 ? 0.05 : 0.028); });
+            padNote(c[0] - 12, t, dur, 0.05);
+            timers.push(setTimeout(chord, dur * 1000 - 2500));
+        }
+        function melody() {
+            if (!playing) return;
+            const t = ac.currentTime + 0.05, m = SC[Math.floor(Math.random() * SC.length)];
+            bell(m, t, rand(0.05, 0.085));
+            if (Math.random() < 0.3) bell(SC[Math.floor(Math.random() * SC.length)], t + rand(0.35, 0.7), 0.04);
+            timers.push(setTimeout(melody, rand(2200, 5500)));
+        }
+        function birds() {
+            if (!playing) return;
+            bird(ac.currentTime + 0.05);
+            timers.push(setTimeout(birds, rand(9000, 22000)));
+        }
+
+        function start() {
+            if (!ac && !build()) return;
+            if (ac.state === 'suspended') ac.resume();
+            if (playing) return;
+            playing = true; ui();
+            if (!windNodes.length) wind();
+            const t = ac.currentTime;
+            master.gain.cancelScheduledValues(t); master.gain.setValueAtTime(master.gain.value, t); master.gain.linearRampToValueAtTime(0.9, t + 4);
+            chord(); timers.push(setTimeout(melody, 2500)); timers.push(setTimeout(birds, 6000));
+        }
+        function stop() {
+            if (!playing) return;
+            playing = false; ui();
+            timers.forEach(clearTimeout); timers = [];
+            const t = ac.currentTime;
+            master.gain.cancelScheduledValues(t); master.gain.setValueAtTime(master.gain.value, t); master.gain.linearRampToValueAtTime(0, t + 1.5);
+            setTimeout(function () { if (!playing && ac) ac.suspend(); }, 1800);
+        }
+        function save() { try { localStorage.setItem('typing_music', want ? 'on' : 'off'); } catch (e) {} }
+
+        btn.addEventListener('mousedown', function (e) { e.preventDefault(); });   // keep typing focus
+        btn.addEventListener('click', function () { started = true; want = !playing; save(); want ? start() : stop(); });
+
+        // Browsers need a first click/key before audio can play
+        function first(e) {
+            if (started) return; started = true;
+            if (e.target && e.target.closest && e.target.closest('#music-btn')) return;
+            if (want) start();
+        }
+        document.addEventListener('pointerdown', first, true);
+        document.addEventListener('keydown', first, true);
+        playing = false; btn.classList.toggle('on', want); label.textContent = want ? 'music on' : 'music off';
+    })();
     </script>
 </body>
 </html>
